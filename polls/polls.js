@@ -7,10 +7,12 @@ checkLoggedIn();
 const questionEl = document.querySelector('.question');
 const options1TitleEl = document.querySelector('.option-1-title');
 const options1VotesEl = document.querySelector('.option-1-votes');
-const options1ButtonEl = document.querySelector('.option-1-button');
+const option1AddVoteButtonEl = document.querySelector('.option-1-add-vote');
+const option1SubtractVoteButtonEl = document.querySelector('.option-1-subtract-vote');
 const options2TitleEl = document.querySelector('.option-2-title');
 const options2VotesEl = document.querySelector('.option-2-votes');
-const options2ButtonEl = document.querySelector('.option-2-button');
+const option2AddVoteButtonEl = document.querySelector('.option-2-add-vote');
+const option2SubtractVoteButtonEl = document.querySelector('.option-2-subtract-vote');
 const finishButtonEl = document.querySelector('.finish-button');
 const pastPollsEl = document.querySelector('.past-polls');
 const pollFormEl = document.querySelector('#poll-form');
@@ -48,14 +50,26 @@ pollFormEl.addEventListener('submit', (e) => {
 
 //increment/decrement vote with click, display the change 
 //ADD DECREMENT HERE
-options1ButtonEl.addEventListener('click', () => {
+option1AddVoteButtonEl.addEventListener('click', () => {
     option1Votes++;
 
     options1VotesEl.textContent = option1Votes;
 });
 
-options2ButtonEl.addEventListener('click', () => {
+option1SubtractVoteButtonEl.addEventListener('click', () => {
+    option1Votes--;
+
+    options1VotesEl.textContent = option1Votes;
+});
+
+option2AddVoteButtonEl.addEventListener('click', () => {
     option2Votes++;
+
+    options2VotesEl.textContent = option2Votes;
+});
+
+option2SubtractVoteButtonEl.addEventListener('click', () => {
+    option2Votes--;
 
     options2VotesEl.textContent = option2Votes;
 });
@@ -73,10 +87,26 @@ logoutButtonEl.addEventListener('click', async () => {
 //add current poll to past polls in Supabase on click, then display
 finishButtonEl.addEventListener('click', async () => {
 
-    await createPoll(question, option1Title, option2Title, option1Votes, option2Votes);
+    const pastPoll = {
+        question: question, 
+        option_1: option1Title,
+        votes_1: option1Votes,
+        option_2: option2Title, 
+        votes_2: option2Votes, 
+    };
+
+    await createPoll(pastPoll);
+
+    question = '';
+    option1Title = '';
+    option1Votes = '';
+    option2Title = '';
+    option2Votes = '';
+
 
     displayPolls();
 });
+
 
 async function displayPolls() {
     const polls = await getPolls();

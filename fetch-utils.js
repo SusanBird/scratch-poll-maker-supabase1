@@ -22,18 +22,10 @@ export async function getPolls() {
     return response.data;
 }
 
-export async function createPoll(question, option1, option2, votes1, votes2) {
+export async function createPoll(somePastPoll) {
     const response = await client
         .from('polls')
-        .insert([
-            {   
-                question,
-                option_1: option1,
-                option_2: option2,
-                votes_1: votes1,
-                votes_2: votes2,
-            },
-        ]);
+        .insert(somePastPoll);
 
     return response.body;
 }
@@ -47,6 +39,19 @@ export async function signUp(realEmail, realPassword) {
     });
 
     console.log('after sign up', client.auth.user());
+
+    return response.user;
+}
+
+export async function signIn(realEmail, realPassword) {
+    console.log('after sign up', client.auth.user());
+
+    const response = await client.auth.signIn({
+        email: realEmail,
+        password: realPassword,
+    });
+
+    console.log('after sign in', client.auth.user());
 
     return response.user;
 }
