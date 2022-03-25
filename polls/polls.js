@@ -33,23 +33,12 @@ pollFormEl.addEventListener('submit', (e) => {
 
     const data = new FormData(pollFormEl);
 
-    question = data.get('question');
-    option1Title = data.get('option-1-title');
-    option1Votes = data.get('option-1-votes');
-    option2Title = data.get('option-2-title');
-    option2Votes = data.get('option-2-votes');
-
-    questionEl.textContent = question;
-    options1TitleEl.textContent = option1Title;
-    options1VotesEl.textContent = option1Votes;
-    options2TitleEl.textContent = option2Title;
-    options2VotesEl.textContent = option2Votes;
+    displayCurrentPollEl(data);
 
     pollFormEl.reset();
 });
 
 //increment/decrement vote with click, display the change 
-//ADD DECREMENT HERE
 option1AddVoteButtonEl.addEventListener('click', () => {
     option1Votes++;
 
@@ -97,16 +86,31 @@ finishButtonEl.addEventListener('click', async () => {
 
     await createPoll(pastPoll);
 
-    question = '';
-    option1Title = '';
-    option1Votes = '';
-    option2Title = '';
-    option2Votes = '';
+    pastPoll.question = '';
+    pastPoll.option1Title = '';
+    pastPoll.option1Votes = 0;
+    pastPoll.option2Title = '';
+    pastPoll.option2Votes = 0;
 
+    // pastPoll.textContent = '';
 
     displayPolls();
 });
 
+
+function displayCurrentPollEl(data) {
+    question = data.get('question');
+    option1Title = data.get('option-1-title');
+    option1Votes = data.get('option-1-votes');
+    option2Title = data.get('option-2-title');
+    option2Votes = data.get('option-2-votes');
+
+    questionEl.textContent = question;
+    options1TitleEl.textContent = option1Title;
+    options1VotesEl.textContent = option1Votes;
+    options2TitleEl.textContent = option2Title;
+    options2VotesEl.textContent = option2Votes;
+}
 
 async function displayPolls() {
     const polls = await getPolls();
