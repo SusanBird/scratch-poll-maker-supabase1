@@ -12,3 +12,11 @@ export function checkLoggedIn() {
 
 const SUPABASE_URL = 'https://cwyvloetshvefkkrywzk.supabase.co';
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+export async function getPolls() {
+    const response = await client
+        .from('polls')
+        .select();
+
+    return response.data;
+}
