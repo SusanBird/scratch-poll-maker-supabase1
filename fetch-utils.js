@@ -50,3 +50,9 @@ export async function signUp(realEmail, realPassword) {
 
     return response.user;
 }
+
+export async function logout() {
+    await client.auth.signOut();
+
+    return window.location.href = '../';
+}
