@@ -43,3 +43,16 @@ pollFormEl.addEventListener('submit', (e) => {
     pollFormEl.reset();
 });
 
+//increment/decrement vote with click, display the change 
+//ADD DECREMENT HERE
+options1ButtonEl.addEventListener('click', () => {
+    option1Votes++;
+
+    options1VotesEl.textContent = option1Votes;
+});
+
+options2ButtonEl.addEventListener('click', () => {
+    option2Votes++;
+
+    options2VotesEl.textContent = option2Votes;
+});
