@@ -56,3 +56,5 @@ options2ButtonEl.addEventListener('click', () => {
 
     options2VotesEl.textContent = option2Votes;
 });
+
+
