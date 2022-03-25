@@ -19,7 +19,7 @@ export async function getPolls() {
         .from('polls')
         .select();
 
-    return response.body;
+    return response.data;
 }
 
 export async function createPoll(question, option1, option2, votes1, votes2) {
