@@ -1,4 +1,4 @@
-## The Golden Rule: 
+## The Golden Rule:
 
 🦸 🦸‍♂️ `Stop starting and start finishing.` 🏁
 
@@ -6,21 +6,50 @@ If you work on more than one feature at a time, you are guaranteed to multiply y
 
 ## Making a plan
 
-1) **Make a drawing of your app. Simple "wireframes"** 
-1) **Look at the drawing and name the HTML elements you'll need to realize your vision**
-1) **Look at the drawing and imagine using the app. What _state_ do you need to track?** 
-1) **For each HTML element ask: Why do I need this? (i.e., "we need div to display the results in")** 
-1) **Once we know _why_ we need each element, think about how to implement the "Why" as a "How" (i.e., `resultsEl.textContent = newResults`)**
-1) **Find all the 'events' (user clicks, form submit, on load etc) in your app. Ask one by one, "What happens when" for each of these events. Does any state change? Does any DOM update?**
-1) **Think about how to validate each of your features according to a Definition of Done. (Hint: console.log usually helps here.)**
-1) **Consider what features _depend_ on what other features. Use this dependency logic to figure out what order to complete tasks.**
+## HTML Setup
 
-Additional considerations:
-- Ask: which of your HTML elements need to be hard coded, and which need to be dynamically generated?
-- Consider your data model. 
-  - What kinds of objects (i.e., Dogs, Friends, Todos, etc) will you need? 
-  - What are the key/value pairs? 
-  - What arrays might you need? 
-  - What needs to live in a persistence layer?
-- Is there some state we need to initialize?
-- Ask: should any of this work be abstracted into functions? (i.e., is the work complicated? can it be resused?)
+-   Question submit form - 3 fields and a button
+-   Current question vote container - 4 buttons (+/- each option)
+-   Finish current poll button
+-   Past polls list
+-   Logout button
+
+## State
+
+-   Local: current question, options and vote totals
+-   Supabase: past polls
+
+## Events
+
+-   user clicks launch new poll
+    -   inject the question and options into div
+    -   state: update question, option1 and option2
+    -   clear out form
+-   user votes + or - for option 1 or 2
+    -   state: votes increment/decrement
+    -   view: update the view with new votes
+-   user clicks finish poll
+    -   local state: clear out all current places
+    -   send results to Supabase to add new row to polls table
+    -   view: clear out list, refetch past polls, render/append
+-   user loads the page
+    -   fetch, render, and append past polls
+-   user clicks logout
+
+    -   return to login page
+
+    ## Login page
+
+    ## HTML:
+
+    -   Two forms: sign up and sign in - email and password inputs
+
+    ## State:
+
+    -   local: current email, password
+
+    ## Events:
+
+    -   user clicks sign up or sign in
+    -   clear form
+    -   user taken to polls page
