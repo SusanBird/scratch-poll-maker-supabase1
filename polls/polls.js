@@ -69,3 +69,11 @@ window.addEventListener('load', async () => {
 logoutButtonEl.addEventListener('click', async () => {
     await logout();
 });
+
+//add current poll to past polls in Supabase on click, then display
+finishButtonEl.addEventListener('click', async () => {
+
+    await savePoll(question, option1Title, option2Title, option1Votes, option2Votes);
+
+    displayPolls();
+});
