@@ -1,4 +1,7 @@
+import { createPoll, getPolls, logout, checkLoggedIn } from '../fetch-utils.js';
+import { renderPoll } from '../render-utils.js';
 
+checkLoggedIn();
 
 //DOM elements
 const questionEl = document.querySelector('.question');
@@ -57,4 +60,12 @@ options2ButtonEl.addEventListener('click', () => {
     options2VotesEl.textContent = option2Votes;
 });
 
+//fetch and display past polls on load
+window.addEventListener('load', async () => {
+    await displayPolls();
+});
 
+//return to login page when click logout button
+logoutButtonEl.addEventListener('click', async () => {
+    await logout();
+});
